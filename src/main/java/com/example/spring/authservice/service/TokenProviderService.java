@@ -59,7 +59,7 @@ public class TokenProviderService {
         } catch (Exception e) {
             // 복호화 과정에서 에러가 나면 유효하지 않은 토큰
             log.info("err : {}", e.getMessage());
-            return 3;
+            return -1;
         }
     }
 

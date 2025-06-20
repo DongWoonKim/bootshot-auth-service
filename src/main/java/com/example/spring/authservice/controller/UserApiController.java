@@ -7,7 +7,6 @@ import com.example.spring.authservice.dto.UserLoginRequestDTO;
 import com.example.spring.authservice.dto.UserLoginResponseDTO;
 import com.example.spring.authservice.service.TokenProviderService;
 import com.example.spring.authservice.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,7 +20,7 @@ import java.time.Duration;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auths")
+@RequestMapping("/auth")
 public class UserApiController {
 
     private final UserService userService;
