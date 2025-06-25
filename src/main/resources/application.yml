@@ -5,7 +5,7 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307}/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${db.username}
     password: ${db.password}
@@ -18,7 +18,7 @@ spring:
   flyway:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307}/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
 
 jwt:
   issuer: ${jwt.issuer}
