@@ -2,6 +2,7 @@ package com.example.spring.authservice.service;
 
 import com.example.spring.authservice.config.jwt.JwtProperties;
 import com.example.spring.authservice.domain.User;
+import com.example.spring.authservice.dto.ClaimsResponseDTO;
 import com.example.spring.authservice.type.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -63,18 +64,13 @@ public class TokenProviderService {
         }
     }
 
-    public Authentication getAuthentication(String token) {
+    public ClaimsResponseDTO getAuthentication(String token) {
         Claims claims = getClaims(token);
-        String role = claims.get("role", String.class);
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(role);
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-                claims.getSubject(),
-                "", // password는 필요 없음
-                Collections.singletonList(authority)
-        );
-
-        return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
+        return ClaimsResponseDTO.builder()
+                .userId(claims.getSubject())
+                .roles(List.of(claims.get("role").toString()))
+                .build();
     }
 
     // 토큰에서 Subject, id, role 값을 추출하는 메서드

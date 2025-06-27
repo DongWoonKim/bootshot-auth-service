@@ -1,10 +1,7 @@
 package com.example.spring.authservice.controller;
 
 import com.example.spring.authservice.domain.User;
-import com.example.spring.authservice.dto.UserJoinRequestDTO;
-import com.example.spring.authservice.dto.UserJoinResponseDTO;
-import com.example.spring.authservice.dto.UserLoginRequestDTO;
-import com.example.spring.authservice.dto.UserLoginResponseDTO;
+import com.example.spring.authservice.dto.*;
 import com.example.spring.authservice.service.TokenProviderService;
 import com.example.spring.authservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +40,7 @@ public class UserApiController {
         User user = userService.login(requestDTO);
 
         // Access Token 생성 (짧은 유효기간)
-        String accessToken = tokenProvider.generateToken(user, Duration.ofDays(1));
+        String accessToken = tokenProvider.generateToken(user, Duration.ofHours(2));
 
         // Refresh Token 생성 (긴 유효기간)
         String refreshToken = tokenProvider.generateToken(user, Duration.ofDays(10));
@@ -55,5 +52,10 @@ public class UserApiController {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    @PostMapping("/me")
+    public ClaimsResponseDTO claims(@RequestBody ClaimsRequestDTO requestDTO) {
+        return tokenProvider.getAuthentication(requestDTO.getToken());
     }
 }
